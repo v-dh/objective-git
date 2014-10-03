@@ -104,6 +104,9 @@ typedef NS_OPTIONS(unsigned int, GTEnumeratorOptions) {
 /// replacing the receiver's `options`.
 - (void)resetWithOptions:(GTEnumeratorOptions)options;
 
+/// Simplify the enumeration to only follow the first parent of each commit.
+- (void)simplyifyWithFirstParentsOnly;
+
 /// Enumerates all marked commits, completely exhausting the receiver.
 ///
 /// error - If not NULL, set to any error that occurs during traversal.

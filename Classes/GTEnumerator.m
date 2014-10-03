@@ -136,6 +136,10 @@
 	git_revwalk_sorting(self.walk, self.options);
 }
 
+- (void)simplyifyWithFirstParentsOnly {
+	git_revwalk_simplify_first_parent(self.walk);
+}
+
 #pragma mark Enumerating
 
 - (GTCommit *)nextObjectWithSuccess:(BOOL *)success error:(NSError **)error {
