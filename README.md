@@ -8,24 +8,25 @@ ObjectiveGit provides Cocoa bindings to the
 Not all libgit2 features are available yet. If you run across something missing,
 please consider [contributing a pull request](#contributing)!
 
+
 ## Getting Started
 
-To start building the framework, you must install the required dependencies, 
-[xctool](https://github.com/facebook/xctool) and 
-[cmake](https://github.com/Kitware/CMake). We recommend using 
-[Homebrew](http://brew.sh) to install these two tools. 
+To start building the framework, you must install the required dependencies,
+[xctool](https://github.com/facebook/xctool) and
+[cmake](https://github.com/Kitware/CMake). We recommend using
+[Homebrew](http://brew.sh) to install these two tools.
 
 Once you have the dependencies you should clone this repository and then run
 `script/bootstrap`. This will automatically pull down and install any other
 dependencies.
 
 Note that the `bootstrap` script automatically installs some libraries that
-ObjectiveGit relies upon, using Homebrew. If you want this behavior, please 
+ObjectiveGit relies upon, using Homebrew. If you want this behavior, please
 make sure you have Homebrew installed.
 
 To develop ObjectiveGit on its own, open the `ObjectiveGitFramework.xcworkspace` file.
 Note that Xcode 6.3 is required to build the framework and run unit tests.
-Projects that must use an older version of Xcode can use 
+Projects that must use an older version of Xcode can use
 [Carthage](https://github.com/Carthage/Carthage) to install pre-built binaries
 or download them from the [releases](https://github.com/libgit2/objective-git/releases).
 
