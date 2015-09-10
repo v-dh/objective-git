@@ -87,7 +87,7 @@
 		// Fast-forward branch
 		NSString *message = [NSString stringWithFormat:@"merge %@/%@: Fast-forward", remote.name, trackingBranch.name];
 		GTReference *reference = [localBranch.reference referenceByUpdatingTarget:remoteCommit.SHA message:message error:error];
-		BOOL checkoutSuccess = [self checkoutReference:reference strategy:GTCheckoutStrategyForce error:error progressBlock:nil];
+		BOOL checkoutSuccess = [self checkoutReference:reference options:[GTCheckoutOptions checkoutOptionsWithStrategy:GTCheckoutStrategyForce] error:error];
 
 		return checkoutSuccess;
 	} else if (analysis & GTMergeAnalysisNormal) {
@@ -125,7 +125,7 @@
 			return NO;
 		}
 
-		BOOL success = [self checkoutReference:localBranch.reference strategy:GTCheckoutStrategyForce error:error progressBlock:nil];
+		BOOL success = [self checkoutReference:localBranch.reference options:[GTCheckoutOptions checkoutOptionsWithStrategy:GTCheckoutStrategyForce] error:error];
 		return success;
 	}
 
