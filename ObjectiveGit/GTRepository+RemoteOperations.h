@@ -14,6 +14,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 /// A `GTCredentialProvider`, that will be used to authenticate against the remote.
 extern NSString *const GTRepositoryRemoteOptionsCredentialProvider;
+/// A BOOL indicating whether self signed cert is accepted.
+extern NSString *const GTRepositoryRemoteOptionsAcceptSelfSignedCert;
 
 @interface GTRepository (RemoteOperations)
 
@@ -25,6 +27,7 @@ extern NSString *const GTRepositoryRemoteOptionsCredentialProvider;
 /// options - Options applied to the fetch operation. May be nil.
 ///           Recognized options are :
 ///           `GTRepositoryRemoteOptionsCredentialProvider`
+///			  `GTRepositoryRemoteOptionsAcceptSelfSignedCert`
 /// error   - The error if one occurred. Can be NULL.
 /// progressBlock - Optional callback to receive fetch progress stats during the
 ///                 transfer. May be nil.

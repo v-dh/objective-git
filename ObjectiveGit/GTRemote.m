@@ -219,6 +219,7 @@ NSString * const GTRemoteRenameProblematicRefSpecs = @"GTRemoteRenameProblematic
 	return YES;
 }
 
+#pragma mark SSL Self Signed Certificat check
 
 //add by vdh for self signed certif
 int GTCertificatCheckCallback(git_cert *cert, int valid, const char *host, void *payload) {

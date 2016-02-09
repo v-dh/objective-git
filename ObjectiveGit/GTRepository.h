@@ -107,6 +107,9 @@ extern NSString * const GTRepositoryCloneOptionsCredentialProvider;
 /// A BOOL indicating whether local clones should actually clone, or just link.
 extern NSString * const GTRepositoryCloneOptionsCloneLocal;
 
+/// A BOOL indicating whether self signed cert is accepted.
+extern NSString * const GTRepositoryAcceptSelfSignedSSLString;
+
 /// A NSURL pointing to a local file that contains PEM-encoded certificate chain.
 extern NSString *const GTRepositoryCloneOptionsServerCertificateURL;
 
@@ -219,6 +222,7 @@ extern NSString * const GTRepositoryInitOptionsOriginURLString;
 ///                         `GTRepositoryCloneOptionsCheckout`,
 ///                         `GTRepositoryCloneOptionsCredentialProvider`,
 ///                         `GTRepositoryCloneOptionsCloneLocal`,
+///							`GTRepositoryAcceptSelfSignedSSLString`,
 ///                         `GTRepositoryCloneOptionsServerCertificateURL`
 /// error                 - A pointer to fill in case of trouble.
 /// transferProgressBlock - This block is called with network transfer updates.

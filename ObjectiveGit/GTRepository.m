@@ -70,6 +70,7 @@ NSString * const GTRepositoryInitOptionsDescription = @"GTRepositoryInitOptionsD
 NSString * const GTRepositoryInitOptionsTemplateURL = @"GTRepositoryInitOptionsTemplateURL";
 NSString * const GTRepositoryInitOptionsInitialHEAD = @"GTRepositoryInitOptionsInitialHEAD";
 NSString * const GTRepositoryInitOptionsOriginURLString = @"GTRepositoryInitOptionsOriginURLString";
+NSString * const GTRepositoryAcceptSelfSignedSSLString = @"GTRepositoryAcceptSelfSignedSSLString";
 
 typedef void (^GTRepositorySubmoduleEnumerationBlock)(GTSubmodule *submodule, NSError *error, BOOL *stop);
 typedef void (^GTRepositoryTagEnumerationBlock)(GTTag *tag, BOOL *stop);
@@ -243,8 +244,10 @@ static int remoteCreate(git_remote **remote, git_repository *repo, const char *n
 		fetchOptions.callbacks.credentials = GTCredentialAcquireCallback;
 	}
 	
-	//add by vdh for self signed certif
-	fetchOptions.callbacks.certificate_check = GTCertificatCheckCallback;
+	// add by vdh for self signed
+	BOOL acceptSelfSigned = [options[GTRepositoryAcceptSelfSignedSSLString]boolValue];
+	if (acceptSelfSigned)
+		fetchOptions.callbacks.certificate_check = GTCertificatCheckCallback;
 	
 	payload.transferProgressBlock = transferProgressBlock;
 

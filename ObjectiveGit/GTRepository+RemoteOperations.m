@@ -23,6 +23,7 @@
 #import "git2/remote.h"
 
 NSString *const GTRepositoryRemoteOptionsCredentialProvider = @"GTRepositoryRemoteOptionsCredentialProvider";
+NSString *const GTRepositoryRemoteOptionsAcceptSelfSignedCert = @"GTRepositoryRemoteOptionsAcceptSelfSignedCert";
 
 typedef void (^GTRemoteFetchTransferProgressBlock)(const git_transfer_progress *stats, BOOL *stop);
 typedef void (^GTRemotePushTransferProgressBlock)(unsigned int current, unsigned int total, size_t bytes, BOOL *stop);
@@ -82,7 +83,9 @@ int GTRemotePushTransferProgressCallback(unsigned int current, unsigned int tota
 	fetchOptions.callbacks = remote_callbacks;
 	
 	//add by vdh for self signed certificat
-	fetchOptions.callbacks.certificate_check = GTCertificatCheckCallback;
+	BOOL acceptSelfSigned = [options[GTRepositoryRemoteOptionsAcceptSelfSignedCert]boolValue];
+	if (acceptSelfSigned)
+		fetchOptions.callbacks.certificate_check = GTCertificatCheckCallback;
 	
 	__block git_strarray refspecs;
 	int gitError = git_remote_get_fetch_refspecs(&refspecs, remote.git_remote);
@@ -221,12 +224,15 @@ int GTFetchHeadEntriesCallback(const char *ref_name, const char *remote_url, con
 	};
 
 	git_remote_callbacks remote_callbacks = GIT_REMOTE_CALLBACKS_INIT;
+	
+	//add by vdh for self signed certif
+	BOOL acceptSelfSigned = [options[GTRepositoryRemoteOptionsAcceptSelfSignedCert]boolValue];
+	if (acceptSelfSigned)
+		remote_callbacks.certificate_check = GTCertificatCheckCallback;
+	
 	remote_callbacks.credentials = (credProvider != nil ? GTCredentialAcquireCallback : NULL),
 	remote_callbacks.push_transfer_progress = GTRemotePushTransferProgressCallback;
 	remote_callbacks.payload = &connectionInfo,
-	
-	//add by vdh for self signed certif
-	remote_callbacks.certificate_check = GTCertificatCheckCallback;
 	
 	gitError = git_remote_connect(remote.git_remote, GIT_DIRECTION_PUSH, &remote_callbacks);
 	if (gitError != GIT_OK) {
