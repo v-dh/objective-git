@@ -80,7 +80,10 @@ int GTRemotePushTransferProgressCallback(unsigned int current, unsigned int tota
 
 	git_fetch_options fetchOptions = GIT_FETCH_OPTIONS_INIT;
 	fetchOptions.callbacks = remote_callbacks;
-
+	
+	//add by vdh for self signed certificat
+	fetchOptions.callbacks.certificate_check = GTCertificatCheckCallback;
+	
 	__block git_strarray refspecs;
 	int gitError = git_remote_get_fetch_refspecs(&refspecs, remote.git_remote);
 	if (gitError != GIT_OK) {
@@ -221,7 +224,10 @@ int GTFetchHeadEntriesCallback(const char *ref_name, const char *remote_url, con
 	remote_callbacks.credentials = (credProvider != nil ? GTCredentialAcquireCallback : NULL),
 	remote_callbacks.push_transfer_progress = GTRemotePushTransferProgressCallback;
 	remote_callbacks.payload = &connectionInfo,
-
+	
+	//add by vdh for self signed certif
+	remote_callbacks.certificate_check = GTCertificatCheckCallback;
+	
 	gitError = git_remote_connect(remote.git_remote, GIT_DIRECTION_PUSH, &remote_callbacks);
 	if (gitError != GIT_OK) {
 		if (error != NULL) *error = [NSError git_errorFor:gitError description:@"Failed to connect remote"];

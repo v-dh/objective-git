@@ -52,6 +52,8 @@
 #import "NSError+Git.h"
 #import "NSString+Git.h"
 #import "GTRepository+References.h"
+// add by vdh for self signed
+#import "GTRemote.h"
 
 #import "git2.h"
 
@@ -240,7 +242,10 @@ static int remoteCreate(git_remote **remote, git_repository *repo, const char *n
 	if (provider) {
 		fetchOptions.callbacks.credentials = GTCredentialAcquireCallback;
 	}
-
+	
+	//add by vdh for self signed certif
+	fetchOptions.callbacks.certificate_check = GTCertificatCheckCallback;
+	
 	payload.transferProgressBlock = transferProgressBlock;
 
 	fetchOptions.callbacks.transfer_progress = transferProgressCallback;

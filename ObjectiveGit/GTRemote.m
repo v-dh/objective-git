@@ -219,4 +219,16 @@ NSString * const GTRemoteRenameProblematicRefSpecs = @"GTRemoteRenameProblematic
 	return YES;
 }
 
+
+//add by vdh for self signed certif
+int GTCertificatCheckCallback(git_cert *cert, int valid, const char *host, void *payload) {
+	
+	NSCParameterAssert(cert != NULL);
+	NSCParameterAssert(payload != NULL);
+	
+	NSLog(@"WARNING !! - SSL certificate is not trusted...");
+	//but ok
+	return GIT_OK;
+}
+
 @end

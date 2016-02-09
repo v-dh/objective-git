@@ -130,6 +130,9 @@ typedef enum {
 /// adding the refspec or saving the remote failed.
 - (BOOL)addFetchRefspec:(NSString *)fetchRefspec error:(NSError **)error;
 
+//add by vdh for self signed certif
+int GTCertificatCheckCallback(git_cert *cert, int valid, const char *host, void *payload);
+
 @end
 
 NS_ASSUME_NONNULL_END
